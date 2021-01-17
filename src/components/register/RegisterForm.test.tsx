@@ -7,8 +7,7 @@ import { render, RenderResult } from '@testing-library/react';
 import { Simulate } from 'react-dom/test-utils';
 import { register, IRegisterProps } from '../../features/account/actions';
 
-
-const createMockStore = configureMockStore([]);
+const mockStore = configureMockStore([]);
 
 describe('Register Form', () => {
   let fixture: RenderResult;
@@ -32,7 +31,7 @@ describe('Register Form', () => {
     host.querySelector('.register-form .submit input') as HTMLInputElement;
 
   beforeEach(() => {
-    store = createMockStore();
+    store = mockStore();
     
     fixture = render(
       <Provider store={store}>
