@@ -1,5 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import RegisterForm from './RegisterForm';
+import React from 'react';
 
 import { MockStore } from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -34,9 +35,11 @@ describe('Register Form', () => {
     store = mockStore();
     
     fixture = render(
-      <Provider store={store}>
-        <RegisterForm />
-      </Provider>
+      <React.StrictMode>
+        <Provider store={store}>
+          <RegisterForm />
+        </Provider>
+      </React.StrictMode>
     );
     host = fixture.container;
   });
