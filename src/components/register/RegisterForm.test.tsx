@@ -70,6 +70,17 @@ describe('Register Form', () => {
     expect(firstAction).toEqual(action);
   });
 
+  it('tells you if your email is invalid', () => {
+    emailElement.value = '';
+    Simulate.change(emailElement);
+    Simulate.click(submitElement);
+
+    Simulate.change(host);
+
+    const el = host.querySelector('.email .field-error');
+    expect(el).toBeTruthy();
+  });
+
   it('does not let you submit without a password', () => {
     emailElement.value = email;
     Simulate.change(emailElement);
