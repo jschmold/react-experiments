@@ -1,6 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import RegisterForm from './RegisterForm';
 import React from 'react';
+import thunk from 'redux-thunk';
 
 import { MockStore } from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -8,7 +9,7 @@ import { render, RenderResult } from '@testing-library/react';
 import { Simulate } from 'react-dom/test-utils';
 import { register, IRegisterProps } from '../../features/account/actions';
 
-const mockStore = configureMockStore([]);
+const mockStore = configureMockStore([thunk]);
 
 describe('Register Form', () => {
   let fixture: RenderResult;
@@ -18,7 +19,6 @@ describe('Register Form', () => {
   const email = 'me@jonathanschmold.ca';
   const password = 'SomePassword1234';
   const name = 'Jonathan Schmold';
-  const action = register({ email, password, name })
 
   let nameElement: HTMLInputElement;
   let pwdElement: HTMLInputElement;
@@ -59,7 +59,9 @@ describe('Register Form', () => {
     fixture.unmount();
   });
   
-  it('Submits the form', () => {
+  it('Submits the form', async () => {
+    const spy = jest.spyOn(store, 'dispatch');
+
     nameElement!.value = name;
     pwdElement!.value = password;
     emailElement!.value = email;
@@ -69,8 +71,8 @@ describe('Register Form', () => {
     Simulate.change(pwdElement);
     Simulate.click(submitElement);
 
-    const [ firstAction ] = store.getActions();
-    expect(firstAction).toEqual(action);
+    const act = register({ email, password, name })
+    expect(spy).toHaveBeenCalledWith(act);
   });
 
   it('tells you if your email is invalid', () => {

@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { register } from '../../features/account/actions';
-import { connect, useDispatch } from 'react-redux';
 import validator from 'validator';
+import { useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { register } from '../../features/account/actions';
 
 interface ISubmitForm {
   name: string;

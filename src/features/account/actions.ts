@@ -8,4 +8,7 @@ export interface IRegisterProps {
   password: string;
 }
 
+
 export const register = createAction<IRegisterProps>(constants.register);
+
+export const registerSuccess = createAction(constants.registerSuccess);
